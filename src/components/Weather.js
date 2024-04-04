@@ -12,7 +12,7 @@ import clearsky from "../image/clearsky.png";
 import cloud from "../image/clouds.png";
 import rain from "../image/rain.png";
 import snow from "../image/snow.png";
-import backimg from "../image/backimg.jpg"
+import backimg from "../image/backimg.jpg";
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
@@ -76,69 +76,56 @@ const Weather = () => {
       setcity(response.data.main);
       setalldata(response.data);
       console.log(response.data);
-  
+
       // Directly use response.data.weather[0].icon
       if (
         response.data.weather[0].icon === "01d" ||
         response.data.weather[0].icon === "01n"
       ) {
         seticon(clearsky);
-  
-  
       } else if (
         response.data.weather[0].icon === "02d" ||
         response.data.weather[0].icon === "02n"
       ) {
         seticon(cloud);
-
-  
       } else if (
         response.data.weather[0].icon === "03d" ||
         response.data.weather[0].icon === "03n"
       ) {
         seticon(drizzle);
-  
-  
       } else if (
         response.data.weather[0].icon === "04d" ||
         response.data.weather[0].icon === "04n"
       ) {
         seticon(drizzle);
-
       } else if (
         response.data.weather[0].icon === "09d" ||
         response.data.weather[0].icon === "09n"
       ) {
         seticon(rain);
-  
-  
       } else if (
         response.data.weather[0].icon === "10d" ||
         response.data.weather[0].icon === "10n"
       ) {
         seticon(rain);
-
-  
       } else if (
         response.data.weather[0].icon === "13d" ||
         response.data.weather[0].icon === "13n"
       ) {
         seticon(snow);
-
-  
       } else {
         seticon(clearsky);
       }
     } catch (error) {
       console.log(error);
+      setalldata("")
     }
   };
   useEffect(() => {
     weatherdetails();
     document.body.style.backgroundImage = `url(${backimg})`;
     document.body.style.backgroundSize = "cover";
-  
-  
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
@@ -151,7 +138,8 @@ const Weather = () => {
           <Item
             sx={{
               background:
-                "rgb(228,17,255) radial-gradient(circle, rgba(241,130,255,1) 0%, rgba(6,27,210,1) 100%)", borderRadius:"20px"
+                "rgb(228,17,255) radial-gradient(circle, rgba(241,130,255,1) 0%, rgba(6,27,210,1) 100%)",
+              borderRadius: "20px",
             }}
           >
             <div
@@ -159,10 +147,15 @@ const Weather = () => {
                 display: "flex",
                 justifyContent: "center",
                 marginBottom: "70px",
-           
               }}
             >
-              <Search sx={{ backgroundColor: "white", marginTop:"20px", borderRadius:"20px" }}>
+              <Search
+                sx={{
+                  backgroundColor: "white",
+                  marginTop: "20px",
+                  borderRadius: "20px",
+                }}
+              >
                 <SearchIconWrapper>
                   <SearchIcon />
                 </SearchIconWrapper>
@@ -177,7 +170,7 @@ const Weather = () => {
               </Search>
             </div>
 
-            {!alldata ? (
+            {/* {!alldata ? (
               <h1>no data</h1>
             ) : (
               <div>
@@ -206,6 +199,69 @@ const Weather = () => {
                   </Typography>
                   <Typography variant="h5" gutterBottom sx={{ color: "black" }}>
                   Temperature: {Math.round(city.temp - 273.15)}&deg;C
+                  </Typography>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "30vh",
+                  }}
+                >
+                  <Typography
+                    variant="h5"
+                    gutterBottom
+                    sx={{ color: "#4c5057", margin: "0" }}
+                  >
+                    Max: {Math.round(city.temp_max - 273.15)}&deg;C
+                  </Typography>
+
+                  <hr style={{ margin: "5px" }} />
+                  <Typography
+                    variant="h5"
+                    gutterBottom
+                    sx={{ color: "#4c5057", margin: "0" }}
+                  >
+                    Min: {Math.round(city.temp_min - 273.15)}&deg;C
+                  </Typography>
+                </div>
+              </div>
+            )} */}
+
+            {!alldata ? (
+              <h1>no data</h1>
+            ) : (
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <img
+                    src={icon}
+                    alt="..."
+                    style={{ height: "70px", width: "70px", color: "yellow" }}
+                  />
+                </div>
+
+                <div
+                  style={{
+                    justifyContent: "center",
+                    marginBottom: "10px",
+                  }}
+                >
+                  <Typography
+                    variant="h3"
+                    gutterBottom
+                    sx={{ color: "black", fontSize: "40px", fontWeight: "800" }}
+                  >
+                    {alldata.name}
+                  </Typography>
+                  <Typography variant="h5" gutterBottom sx={{ color: "black" }}>
+                    Temperature: {Math.round(city.temp - 273.15)}&deg;C
                   </Typography>
                 </div>
 
